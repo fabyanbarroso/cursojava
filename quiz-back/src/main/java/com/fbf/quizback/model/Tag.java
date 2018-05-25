@@ -35,7 +35,6 @@ public class Tag {
 			   inverseJoinColumns = {@JoinColumn(name = "idQuiz")})
 	private List<Quiz> quiz;
 	
-	
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Question> questions;
 }

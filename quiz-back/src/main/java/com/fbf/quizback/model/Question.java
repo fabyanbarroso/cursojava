@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,19 +21,20 @@ import lombok.Setter;
 public class Question {
 	
 	public static final String FIELD_QUESTION = "question";
-
+	public static final String FIELD_QUIZ = "quiz";
 	@Id
 	@GeneratedValue
-	private int idQuestion;
+	private int id_question;
 	
 	@Column(nullable = false)
 	private String question;
 	
 	@ManyToMany
 	@JoinTable(name = "Question_Quiz",
-			   joinColumns = {@JoinColumn(name = "idQuestion")},
-			   inverseJoinColumns = {@JoinColumn(name = "idQuiz")})
+			   joinColumns = {@JoinColumn(name = FIELD_QUESTION)},
+			   inverseJoinColumns = {@JoinColumn(name = FIELD_QUIZ)})
 	private List<Quiz> quiz;
+	
 	
 	
 }

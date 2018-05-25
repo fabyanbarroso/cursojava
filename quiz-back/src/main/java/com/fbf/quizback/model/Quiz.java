@@ -23,7 +23,7 @@ public class Quiz {
 	
 	@Id
 	@GeneratedValue
-	private int idQuiz;
+	private int id_quiz;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_QUIZ)
 	private List<Result> result;
@@ -35,6 +35,6 @@ public class Quiz {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Tag.FIELD_QUIZ)
 	private List<Tag> tags;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Question.FIELD_QUESTION)
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = Question.FIELD_QUIZ)
 	private List<Question> questions;
 }
