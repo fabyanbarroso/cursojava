@@ -2,7 +2,6 @@ package com.fbf.quizback.model;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,10 +30,11 @@ public class Result {
 	@Column
 	private float calification;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = FIELD_USER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
 	@JoinColumn(name=FIELD_QUIZ)
 	@ManyToOne(fetch = FetchType.LAZY)
-	private List<Quiz> quizs ;
+	private Quiz quiz;
 }
