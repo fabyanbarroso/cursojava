@@ -42,6 +42,6 @@ public class Question {
 	@JoinColumn(name = "idDificultad")
 	private Dificult dificult;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = Answer.FIELD_QUESTION)
+	@OneToMany(fetch = FetchType.LAZY)
 	List<Answer> answer;
 }
