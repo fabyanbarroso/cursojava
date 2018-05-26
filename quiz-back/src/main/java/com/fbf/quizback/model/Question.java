@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 import lombok.Getter;
@@ -35,6 +38,10 @@ public class Question {
 			   inverseJoinColumns = {@JoinColumn(name = FIELD_QUIZ)})
 	private List<Quiz> quiz;
 	
+	@OneToOne
+	@JoinColumn(name = "idDificultad")
+	private Dificult dificult;
 	
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = Answer.FIELD_QUESTION)
+	List<Answer> answer;
 }

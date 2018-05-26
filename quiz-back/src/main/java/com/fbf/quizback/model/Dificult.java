@@ -20,5 +20,4 @@ public class Dificult {
 	
 	@Column
 	private int dificult;
-	
 }
