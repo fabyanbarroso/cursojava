@@ -11,4 +11,5 @@ public class DozerConfig {
 	public DozerBeanMapper dozer() {
 		return new DozerBeanMapper();
 	}
+
 }

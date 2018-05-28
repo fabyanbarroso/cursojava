@@ -1,3 +1,4 @@
+
 package com.fbf.quizback.component.mapper;
 
 import java.util.Set;
@@ -32,5 +33,4 @@ public abstract class AbstractMapper<M, D> implements Mapper<M, D> {
 	public Set<D> modelToDto(Set<M> models) {
 		return models.stream().map(m -> modelToDto(m)).collect(Collectors.toSet());
 	}
-
 }
