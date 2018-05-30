@@ -6,7 +6,6 @@ import com.fbf.quizback.component.mapper.AbstractMapper;
 import com.fbf.quizback.dto.CourseDTO;
 import com.fbf.quizback.model.Course;
 
-
 @Component
 public class CourseMapperImpl extends AbstractMapper<Course, CourseDTO> implements CourseMapper{
 
@@ -19,5 +18,4 @@ public class CourseMapperImpl extends AbstractMapper<Course, CourseDTO> implemen
 	public Class<? extends Course> modelClazz() {
 		return Course.class;
 	}
-
 }

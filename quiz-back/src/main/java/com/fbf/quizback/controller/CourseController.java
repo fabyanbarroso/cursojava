@@ -18,7 +18,7 @@ import com.fbf.quizback.service.CourseService;
 
 
 @RestController
-@RequestMapping(value = "/corse")
+@RequestMapping(value = "/course")
 public class CourseController {
 
 	@Autowired
