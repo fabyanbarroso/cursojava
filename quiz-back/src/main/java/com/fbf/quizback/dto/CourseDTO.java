@@ -1,4 +1,5 @@
 package com.fbf.quizback.dto;
+
 import java.io.Serializable;
 import java.sql.Date;
 

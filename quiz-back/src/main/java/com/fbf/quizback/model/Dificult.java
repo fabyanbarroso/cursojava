@@ -3,6 +3,7 @@ package com.fbf.quizback.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
@@ -15,7 +16,7 @@ import lombok.Setter;
 public class Dificult {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private int idDificult;
 	
 	@Column

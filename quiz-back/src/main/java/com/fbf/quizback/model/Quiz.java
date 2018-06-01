@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -22,7 +23,7 @@ public class Quiz {
 	
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private int id_quiz;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_QUIZ)

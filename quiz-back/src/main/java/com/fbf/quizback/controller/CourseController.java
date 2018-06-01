@@ -48,9 +48,9 @@ public class CourseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public void update(@PathVariable("id") Integer id, @RequestBody CourseDTO dto) {
 		final Optional<Course> course = courseService.findById(id);
-		Course userEdit = courseMapper.dtoToModel(dto);
-		course.get().setName(userEdit.getName());
-		course.get().setDate(userEdit.getDate());
+		Course courseEdit = courseMapper.dtoToModel(dto);
+		course.get().setName(courseEdit.getName());
+		course.get().setDate(courseEdit.getDate());
 		courseService.update(course.get());
 	}
 	

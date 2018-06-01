@@ -3,6 +3,7 @@ package com.fbf.quizback.model;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,7 +16,7 @@ public class ReplyQuestion {
 	public static final String FIELD_QUIZ = "quiz";	
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private int idReplyQuestion;
 	
 	@JoinColumn(name=FIELD_USER)

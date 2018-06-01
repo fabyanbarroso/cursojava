@@ -1,7 +1,6 @@
 package com.fbf.quizback.component.mapper.user;
 
 import org.springframework.stereotype.Component;
-
 import com.fbf.quizback.component.mapper.AbstractMapper;
 import com.fbf.quizback.dto.UserDTO;
 import com.fbf.quizback.model.User;
