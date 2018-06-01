@@ -16,6 +16,7 @@ import com.fbf.quizback.component.mapper.question.QuestionMapper;
 import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.service.QuestionService;
+import com.fbf.quizback.service.QuestionServiceImpl;
 
 @RestController
 @RequestMapping(value = "/question")
@@ -26,6 +27,7 @@ public class QuestionController {
 	
 	@Autowired
 	QuestionMapper questionMapper;
+	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public Set<QuestionDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
@@ -43,7 +45,7 @@ public class QuestionController {
 	@RequestMapping(method = RequestMethod.POST)
 	public QuestionDTO create(@RequestBody QuestionDTO dto) {
 		final Question question = questionMapper.dtoToModel(dto);
-		final Question createQuestion = questionService.create(question);
+		final Question createQuestion = questionService.create(question, dto.getDificultLevel(), dto.getTagQuestion());
 		return questionMapper.modelToDto(createQuestion);
 	}
 	

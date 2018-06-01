@@ -21,7 +21,6 @@ public class Quiz {
 	
 	public static final String FIELD_COURSE = "course";
 	
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	private int id_quiz;

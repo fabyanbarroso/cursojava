@@ -45,4 +45,8 @@ public class Question {
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	List<Answer> answer;
+	
+	@OneToOne
+	@JoinColumn(name = "idTag")
+	private Tag tag;
 }

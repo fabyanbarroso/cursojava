@@ -7,47 +7,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.fbf.quizback.dao.DificultDAO;
-import com.fbf.quizback.dto.DificultDTO;
-import com.fbf.quizback.model.Dificult;
+
+import com.fbf.quizback.dao.QuizDAO;
+import com.fbf.quizback.model.Quiz;
 
 @Service
-public class DificultServiceImpl implements DificultService{
-	
+public class QuizServiceImpl implements QuizService{
+
 	@Autowired
-	DificultDAO dificultDAO;
+	QuizDAO quizDAO;
 	
 	@Override
-	public Dificult create(Dificult t) {
+	public Quiz create(Quiz t) {
 		// TODO Auto-generated method stub
-		return dificultDAO.save(t);
+		return quizDAO.save(t);
 	}
 
 	@Override
-	public void update(Dificult t) {
+	public void update(Quiz t) {
 		// TODO Auto-generated method stub
-		dificultDAO.save(t);
+		quizDAO.save(t);
 	}
 
 	@Override
-	public Optional<Dificult> findById(Integer id) {
+	public Optional<Quiz> findById(Integer id) {
 		// TODO Auto-generated method stub
-		return dificultDAO.findById(id);
+		return quizDAO.findById(id);
 	}
 
 	@Override
-	public Set<Dificult> findAll(Pageable p) {
+	public Set<Quiz> findAll(Pageable p) {
 		// TODO Auto-generated method stub
 		int page = p.getPageNumber();
 		int size = p.getPageSize();
-		return dificultDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
+		return quizDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
 	}
 
 	@Override
-	public void delete(Dificult t) {
+	public void delete(Quiz t) {
 		// TODO Auto-generated method stub
-		dificultDAO.delete(t);
+		quizDAO.delete(t);
 	}
-
 
 }

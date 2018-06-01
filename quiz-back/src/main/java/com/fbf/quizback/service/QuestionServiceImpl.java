@@ -9,17 +9,24 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.fbf.quizback.dao.QuestionDAO;
+import com.fbf.quizback.dto.QuestionDTO;
+import com.fbf.quizback.model.Dificult;
 import com.fbf.quizback.model.Question;
+import com.fbf.quizback.model.Tag;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
 
 	@Autowired
 	QuestionDAO questionDAO;
+	
+	@Autowired
+	DificultService dificultService;
+	
+	@Autowired
+	TagService tagService;
 
-	@Override
 	public Question create(Question t) {
-		// TODO Auto-generated method stub
 		return questionDAO.save(t);
 	}
 
@@ -47,5 +54,17 @@ public class QuestionServiceImpl implements QuestionService{
 	public void delete(Question t) {
 		// TODO Auto-generated method stub
 		questionDAO.delete(t);
+	}
+
+	@Override
+	public Question create(Question question, int dificultLevel, int tagQuestion) {
+		// TODO Auto-generated method stub
+		if (dificultService.findById(dificultLevel).isPresent()) {
+			question.setDificult(dificultService.findById(dificultLevel).get());
+		}
+		if (tagService.findById(tagQuestion).isPresent()) {
+			question.setTag(tagService.findById(tagQuestion).get());
+		}
+		return questionDAO.save(question);
 	}
 }

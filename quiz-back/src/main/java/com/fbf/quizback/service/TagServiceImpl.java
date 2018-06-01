@@ -7,47 +7,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.fbf.quizback.dao.DificultDAO;
-import com.fbf.quizback.dto.DificultDTO;
-import com.fbf.quizback.model.Dificult;
+
+import com.fbf.quizback.dao.TagDAO;
+import com.fbf.quizback.model.Tag;
 
 @Service
-public class DificultServiceImpl implements DificultService{
+public class TagServiceImpl implements TagService{
 	
 	@Autowired
-	DificultDAO dificultDAO;
+	TagDAO tagDAO;
+	
 	
 	@Override
-	public Dificult create(Dificult t) {
+	public Tag create(Tag t) {
 		// TODO Auto-generated method stub
-		return dificultDAO.save(t);
+		return tagDAO.save(t);
 	}
 
 	@Override
-	public void update(Dificult t) {
+	public void update(Tag t) {
 		// TODO Auto-generated method stub
-		dificultDAO.save(t);
+		tagDAO.save(t);
 	}
 
 	@Override
-	public Optional<Dificult> findById(Integer id) {
+	public Optional<Tag> findById(Integer id) {
 		// TODO Auto-generated method stub
-		return dificultDAO.findById(id);
+		return tagDAO.findById(id);
 	}
 
 	@Override
-	public Set<Dificult> findAll(Pageable p) {
+	public Set<Tag> findAll(Pageable p) {
 		// TODO Auto-generated method stub
 		int page = p.getPageNumber();
 		int size = p.getPageSize();
-		return dificultDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
+		return tagDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
 	}
 
 	@Override
-	public void delete(Dificult t) {
+	public void delete(Tag t) {
 		// TODO Auto-generated method stub
-		dificultDAO.delete(t);
+		tagDAO.delete(t);
 	}
+
 
 
 }
