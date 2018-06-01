@@ -2,36 +2,24 @@ package com.fbf.quizback.controller;
 
 import java.util.Optional;
 import java.util.Set;
-
-import javax.swing.plaf.basic.BasicTreeUI.TreeHomeAction;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fbf.quizback.component.mapper.user.UserMapper;
 import com.fbf.quizback.component.mapper.user.UserPostMapper;
-import com.fbf.quizback.dao.UserDAO;
 import com.fbf.quizback.dto.UserDTO;
 import com.fbf.quizback.dto.UserPostDTO;
 import com.fbf.quizback.model.User;
 import com.fbf.quizback.service.UserService;
 
-import net.bytebuddy.asm.Advice.Return;
-
-import com.fbf.quizback.exception.*;
-
 @RestController
 @RequestMapping(value = "/user")
-public class UserController extends RuntimeException{
+public class UserController{
 
 	@Autowired
 	UserService userService;
@@ -61,7 +49,6 @@ public class UserController extends RuntimeException{
 		final User createUser = userService.create(user);
 		return userPostMapper.modelToDto(createUser);
 	}
-	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public void update(@PathVariable("id") Integer id, @RequestBody UserPostDTO dto) {
