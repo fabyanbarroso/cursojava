@@ -8,6 +8,7 @@ import lombok.Data;
 public class CourseDTO implements Serializable{
 
 	private Integer idCourse;
+	String name;
 	private Date date;
 
 }
