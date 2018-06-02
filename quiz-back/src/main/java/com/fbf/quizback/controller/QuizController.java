@@ -18,6 +18,7 @@ import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.dto.QuizDTO;
 import com.fbf.quizback.dto.QuizQuestionDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
+import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 import com.fbf.quizback.service.QuizService;
@@ -45,13 +46,12 @@ public class QuizController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public QuizDTO findById(@PathVariable("id") Integer id) {
 		final Optional<Quiz> quiz = quizService.findById(id);
-		QuizDTO dto = quizMapper.modelToDto(quiz.get());
-		dto.setId_course(quiz.get().getCourse().getIdCourse());
-		return dto;
+		return quizMapper.modelToDto(quiz.get());
 	}
 
 	@RequestMapping(value = "/{id}/question", method = RequestMethod.GET)
-	public Set<QuestionDTO> quizFindQuestion(@PathVariable("id") Integer id) throws QuestionNotFoundException {
+	public Set<QuestionDTO> quizFindQuestion(@PathVariable("id") Integer id) throws QuestionNotFoundException, QuizNotFoundException {
+	System.out.println("------------_"+id);
 		Set<Question> questions = quizService.quizFindQuestion(id);
 		return questionMapper.modelToDto(questions);
 	}

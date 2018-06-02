@@ -13,6 +13,7 @@ import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.model.Dificult;
 import com.fbf.quizback.model.Question;
+import com.fbf.quizback.model.Quiz;
 import com.fbf.quizback.model.Tag;
 
 @Service
@@ -69,13 +70,4 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDAO.save(question);
 	}
 
-	@Override
-	public Set<Question> questionQuiz(int idQuiz) throws QuestionNotFoundException{
-		// TODO Auto-generated method stub
-		if(questionDAO.findAllByquiz(idQuiz).isPresent()) {
-			return questionDAO.findAllByquiz(idQuiz).get();
-		}else {
-			throw new QuestionNotFoundException();
-		}
-	}
 }

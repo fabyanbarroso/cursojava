@@ -1,5 +1,6 @@
 package com.fbf.quizback.service;
 
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fbf.quizback.dao.QuizDAO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
+import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 
@@ -61,9 +63,16 @@ public class QuizServiceImpl implements QuizService{
 	}
 
 	@Override
-	public Set<Question> quizFindQuestion(int idQuiz) throws QuestionNotFoundException {
+	public Set<Question> quizFindQuestion(int idQuiz) throws QuestionNotFoundException, QuizNotFoundException {
 		// TODO Auto-generated method stub
-		return questionService.questionQuiz(idQuiz);
+		if(!quizDAO.findById(idQuiz).isPresent())
+			throw new QuizNotFoundException();
+		Quiz quiz = quizDAO.findById(idQuiz).get();
+		Set <Question> questions = questionService.findAll(PageRequest.of(0, 10));
+		
+		
+		
+		return questions;
 	}
 
 }

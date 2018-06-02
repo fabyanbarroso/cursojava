@@ -26,4 +26,11 @@ public class QuizMapperImpl extends AbstractMapper<Quiz, QuizDTO> implements Qui
 		// TODO Auto-generated method stub
 		return Quiz.class;
 	}
+
+	@Override
+	public QuizDTO modelToDto(Quiz quiz) {
+		QuizDTO dto = dozer.map(quiz, dtoClazz());
+		dto.setId_course(quiz.getCourse().getIdCourse());
+		return dto;
+	}
 }
