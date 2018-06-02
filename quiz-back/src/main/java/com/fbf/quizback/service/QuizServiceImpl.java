@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fbf.quizback.dao.QuizDAO;
+import com.fbf.quizback.exception.QuestionNotFoundException;
+import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 
 @Service
@@ -17,9 +19,18 @@ public class QuizServiceImpl implements QuizService{
 	@Autowired
 	QuizDAO quizDAO;
 	
+	@Autowired
+	CourseService courseService;
+	
+	@Autowired
+	QuestionService questionService;
+	
 	@Override
-	public Quiz create(Quiz t) {
+	public Quiz create(Quiz t, int idCourse) {
 		// TODO Auto-generated method stub
+		if (courseService.findById(idCourse).isPresent()) {
+			t.setCourse(courseService.findById(idCourse).get());
+		}
 		return quizDAO.save(t);
 	}
 
@@ -47,6 +58,12 @@ public class QuizServiceImpl implements QuizService{
 	public void delete(Quiz t) {
 		// TODO Auto-generated method stub
 		quizDAO.delete(t);
+	}
+
+	@Override
+	public Set<Question> quizFindQuestion(int idQuiz) throws QuestionNotFoundException {
+		// TODO Auto-generated method stub
+		return questionService.questionQuiz(idQuiz);
 	}
 
 }

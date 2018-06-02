@@ -5,10 +5,12 @@ import java.util.Set;
 
 import org.springframework.data.domain.Pageable;
 
+import com.fbf.quizback.exception.QuestionNotFoundException;
+import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 
 public interface QuizService {
-	Quiz create(Quiz t);
+	Quiz create(Quiz t, int idCourse);
 	
 	void update(Quiz t);
 	
@@ -17,5 +19,7 @@ public interface QuizService {
 	Set<Quiz> findAll(Pageable p);
 	
 	void delete(Quiz t);
+	
+	Set<Question> quizFindQuestion(int idQuiz) throws QuestionNotFoundException;
 	
 }

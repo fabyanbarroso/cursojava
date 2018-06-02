@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fbf.quizback.component.mapper.question.QuestionMapper;
 import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.service.QuestionService;
-import com.fbf.quizback.service.QuestionServiceImpl;
 
 @RestController
 @RequestMapping(value = "/question")

@@ -3,14 +3,15 @@ package com.fbf.quizback.component.mapper;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public abstract class AbstractMapper<M, D> implements Mapper<M, D> {
 
+	
 	@Autowired
 	public DozerBeanMapper dozer;
 

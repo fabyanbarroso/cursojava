@@ -1,5 +1,6 @@
 package com.fbf.quizback.component.mapper.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.fbf.quizback.component.mapper.AbstractMapper;
 import com.fbf.quizback.dto.UserDTO;

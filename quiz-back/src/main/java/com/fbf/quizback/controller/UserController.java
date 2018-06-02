@@ -14,12 +14,13 @@ import com.fbf.quizback.component.mapper.user.UserMapper;
 import com.fbf.quizback.component.mapper.user.UserPostMapper;
 import com.fbf.quizback.dto.UserDTO;
 import com.fbf.quizback.dto.UserPostDTO;
+import com.fbf.quizback.exception.UserNotFoundException;
 import com.fbf.quizback.model.User;
 import com.fbf.quizback.service.UserService;
 
-@RestController
+ @RestController
 @RequestMapping(value = "/user")
-public class UserController{
+public class UserController {
 
 	@Autowired
 	UserService userService;
@@ -38,8 +39,10 @@ public class UserController{
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public UserDTO findById(@PathVariable("id") Integer id) {
+	public UserDTO findById(@PathVariable("id") Integer id) throws UserNotFoundException{
 		final Optional<User> user = userService.findById(id);
+			if(!user.isPresent())
+				throw new UserNotFoundException();
 		return userMapper.modelToDto(user.get());
 	}
 
@@ -51,8 +54,11 @@ public class UserController{
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public void update(@PathVariable("id") Integer id, @RequestBody UserPostDTO dto) {
+	public void update(@PathVariable("id") Integer id, @RequestBody UserPostDTO dto) throws UserNotFoundException {
 		final Optional<User> user = userService.findById(id);
+		if (!user.isPresent())
+			throw new UserNotFoundException();
+			
 		User userEdit = userPostMapper.dtoToModel(dto);
 		user.get().setName(userEdit.getName());
 		user.get().setEmail(userEdit.getEmail());
@@ -61,8 +67,10 @@ public class UserController{
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable("id") Integer id) {
+	public void delete(@PathVariable("id") Integer id) throws UserNotFoundException{
 		final Optional<User> user = userService.findById(id);
+		if(!user.isPresent())
+			throw new UserNotFoundException();
 		userService.delete(user.get());
 	}
 }

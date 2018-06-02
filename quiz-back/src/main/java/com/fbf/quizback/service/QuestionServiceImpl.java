@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.fbf.quizback.dao.QuestionDAO;
 import com.fbf.quizback.dto.QuestionDTO;
+import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.model.Dificult;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Tag;
@@ -66,5 +67,15 @@ public class QuestionServiceImpl implements QuestionService{
 			question.setTag(tagService.findById(tagQuestion).get());
 		}
 		return questionDAO.save(question);
+	}
+
+	@Override
+	public Set<Question> questionQuiz(int idQuiz) throws QuestionNotFoundException{
+		// TODO Auto-generated method stub
+		if(questionDAO.findAllByquiz(idQuiz).isPresent()) {
+			return questionDAO.findAllByquiz(idQuiz).get();
+		}else {
+			throw new QuestionNotFoundException();
+		}
 	}
 }
