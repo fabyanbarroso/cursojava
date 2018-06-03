@@ -27,6 +27,7 @@ import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.exception.QuizUsedException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
+import com.fbf.quizback.service.QuestionService;
 import com.fbf.quizback.service.QuizService;
 
 @RestController
@@ -79,6 +80,7 @@ public class QuizController {
 		return quizMapper.modelToDto(createQuiz);
 	}
 	
+	//add question to quiz by post and dto quiz-question
 	@RequestMapping(value="/{id}/question",method = RequestMethod.POST)
 	public QuizQuestionDTO addQuestion(@RequestBody QuizQuestionDTO dto ) throws QuizNotFoundException, QuestionNotFoundException {
 		
@@ -88,6 +90,32 @@ public class QuizController {
 		
 		return dto;
 	}
+	
+	//add question to quiz by URL
+	@RequestMapping(value="/{id}/question/{idquestion}",method = RequestMethod.PUT)
+	public QuizToShowDTO addQuestionToQuiz(@PathVariable("id") Integer idQuiz,
+			@PathVariable("idquestion") Integer idQuestion)
+			throws QuizNotFoundException, QuestionNotFoundException {
+		
+		if(!quizService.findById(idQuiz).isPresent())
+			throw new QuizNotFoundException();
+		quizService.addQuestion(quizService.findById(idQuiz).get(), idQuestion);
+		return quizToShowMapper.modelToDto(quizService.findById(idQuiz).get());
+	}
+	
+	
+	//delete question in quiz by URL
+	@RequestMapping(value="/{id}/question/{idquestion}",method = RequestMethod.DELETE)
+	public QuizQuestionDTO deleteQuestionQuiz(@RequestBody QuizQuestionDTO dto ,
+			@PathVariable("id") Integer idQuiz, @PathVariable("idquestion") Integer idQuestion)
+					throws QuizNotFoundException, QuestionNotFoundException {
+		if(!quizService.findById(idQuiz).isPresent())
+			throw new QuizNotFoundException();
+		quizService.deleteQuestionQuiz(quizService.findById(idQuiz).get(), idQuestion);
+		
+		return dto;
+	}
+	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public void update(@PathVariable("id") Integer id, @RequestBody QuizDTO dto) throws QuestionNotFoundException {

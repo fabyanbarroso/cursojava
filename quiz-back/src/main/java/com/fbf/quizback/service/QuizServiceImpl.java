@@ -19,6 +19,8 @@ import com.fbf.quizback.exception.QuizUsedException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
+
 @Service
 public class QuizServiceImpl implements QuizService{
 
@@ -83,8 +85,27 @@ public class QuizServiceImpl implements QuizService{
 	}
 	
 	@Override
+	public void deleteQuestionQuiz(Quiz quiz, int idQuestion) throws QuizNotFoundException {
+
+		Optional<Quiz> quizSearch = quizDAO.findById(quiz.getId_quiz());
+		if(!quizSearch.isPresent())
+			throw new QuizNotFoundException();
+	
+			Quiz q = quizSearch.get();
+			Optional<Question> question = questionService.findById(idQuestion);
+			q.getQuestions().remove(question.get());
+			
+	
+
+
+		quizDAO.save(q);
+
+		
+	}
+	
+	@Override
 	public void addQuestion(Quiz quiz, int idQuestion) throws QuestionNotFoundException {
-		if(!questionService.findById(idQuestion).isPresent())
+		if(!questionService.findById(idQuestion).isPresent()) 
 			throw new QuestionNotFoundException();
 		Question question = questionService.findById(idQuestion).get();
 		question.getQuiz().add(quiz);

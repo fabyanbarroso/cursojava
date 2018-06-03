@@ -25,4 +25,6 @@ public interface QuizService {
 	List<Question> quizFindQuestion(int idQuiz) throws QuestionNotFoundException, QuizNotFoundException;
 	
 	public void addQuestion(Quiz quiz, int idQuestion) throws QuestionNotFoundException;
+
+	void deleteQuestionQuiz(Quiz quiz, int idQuestion) throws QuizNotFoundException;
 }
