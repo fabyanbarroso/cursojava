@@ -14,6 +14,7 @@ import com.fbf.quizback.component.mapper.user.UserMapper;
 import com.fbf.quizback.component.mapper.user.UserPostMapper;
 import com.fbf.quizback.dto.UserDTO;
 import com.fbf.quizback.dto.UserPostDTO;
+import com.fbf.quizback.exception.EmailUserDuplicated;
 import com.fbf.quizback.exception.UserNotFoundException;
 import com.fbf.quizback.model.User;
 import com.fbf.quizback.service.UserService;
@@ -47,21 +48,25 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public UserPostDTO create(@RequestBody UserPostDTO dto) {
+	public UserPostDTO create(@RequestBody UserPostDTO dto) throws EmailUserDuplicated {
 		final User user = userPostMapper.dtoToModel(dto);
+		if(userService.findByEmail(user.getEmail()).isPresent())
+				throw new EmailUserDuplicated();
 		final User createUser = userService.create(user);
+
 		return userPostMapper.modelToDto(createUser);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public void update(@PathVariable("id") Integer id, @RequestBody UserPostDTO dto) throws UserNotFoundException {
+	public void update(@PathVariable("id") Integer id, @RequestBody UserPostDTO dto) throws UserNotFoundException, EmailUserDuplicated {
 		final Optional<User> user = userService.findById(id);
 		if (!user.isPresent())
 			throw new UserNotFoundException();
-			
 		User userEdit = userPostMapper.dtoToModel(dto);
 		user.get().setName(userEdit.getName());
 		user.get().setEmail(userEdit.getEmail());
+		if(userService.findByEmail(userEdit.getEmail()).isPresent())
+			throw new EmailUserDuplicated();
 		user.get().setPassword(userEdit.getPassword());
 		userService.update(user.get());
 	}

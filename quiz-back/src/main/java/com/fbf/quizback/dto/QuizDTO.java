@@ -7,5 +7,6 @@ import lombok.Data;
 public class QuizDTO implements Serializable{
 	private int id_quiz;
 	private String name;
+	
 
 }

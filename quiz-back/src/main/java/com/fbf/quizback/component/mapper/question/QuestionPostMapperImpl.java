@@ -1,7 +1,5 @@
 package com.fbf.quizback.component.mapper.question;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +8,6 @@ import com.fbf.quizback.component.mapper.AbstractMapper;
 import com.fbf.quizback.dao.QuestionDAO;
 import com.fbf.quizback.dto.QuestionPostDTO;
 import com.fbf.quizback.model.Question;
-import com.fbf.quizback.model.Quiz;
 import com.fbf.quizback.service.DificultService;
 import com.fbf.quizback.service.QuestionService;
 import com.fbf.quizback.service.QuizService;
@@ -45,7 +42,7 @@ public class QuestionPostMapperImpl extends AbstractMapper<Question, QuestionPos
 		return Question.class;
 	}
 	
-	/*
+	
 	@Override
 	public QuestionPostDTO modelToDto(Question question) {
 		QuestionPostDTO dto = dozer.map(question, dtoClazz());
@@ -53,7 +50,7 @@ public class QuestionPostMapperImpl extends AbstractMapper<Question, QuestionPos
 		dto.setTagQuestion(question.getTag().getIdTag());
 		return dto;
 	}
-	*/
+
 	
 	@Override
 	public Question dtoToModel(QuestionPostDTO dto) {
@@ -63,24 +60,7 @@ public class QuestionPostMapperImpl extends AbstractMapper<Question, QuestionPos
 		System.out.println("tag"+tagService.findById(dto.getTagQuestion()).get().getIdTag());
 		question.setTag(tagService.findById(dto.getTagQuestion()).get());
 		
-		/*
-		
-		Quiz quiz = quizService.findById(dto.getIdQuiz()).get();
-		System.out.println("questionary"+quiz.getId_quiz());
-		System.out.println("Lista"+ questionService.findById(question.getId_question()).isPresent());
-		if(!questionService.findById(question.getId_question()).isPresent()) {
-			List<Quiz> quizs = new ArrayList<Quiz>();
-			quizs.add(quiz);
-
-			
-		}else {
-			List<Quiz> quizs = questionService.findById(question.getId_question()).get().getQuiz();
-			quizs.add(quiz);
-			question.setQuiz(quizs);
-		}
-		//question.setAnswer(dto.getAnswer());
-		 * 
-		 */
 		return question;
-	}
+		
+	} 
 }

@@ -1,8 +1,8 @@
 package com.fbf.quizback.controller;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.fbf.quizback.component.mapper.question.QuestionMapper;
 import com.fbf.quizback.component.mapper.question.QuestionPostMapper;
+import com.fbf.quizback.component.mapper.question.QuestionToShowMapper;
 import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.dto.QuestionPostDTO;
-import com.fbf.quizback.exception.DificultNotFoundException;
+import com.fbf.quizback.dto.QuestionToShowDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
-import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.service.QuestionService;
 
@@ -34,19 +34,31 @@ public class QuestionController {
 	@Autowired
 	QuestionPostMapper questionPostMapper;
 	
+	@Autowired
+	QuestionToShowMapper questionToShowMapper;
 	
+	/*
 	@RequestMapping(method = RequestMethod.GET)
 	public List<QuestionDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
 		final List<Question> questions = questionService.findAll(PageRequest.of(page, size));
-		return questionMapper.modelToDto(questions);
+		return questions.stream().map(question -> questionMapper.modelToDto(question)).collect(Collectors.toList());
+		//return questionMapper.modelToDto(questions);
+	}
+	*/
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<QuestionToShowDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+			@RequestParam(defaultValue = "10", required = false) Integer size) {
+		final List<Question> questions = questionService.findAll(PageRequest.of(page, size));
+		return questions.stream().map(question -> questionToShowMapper.modelToDto(question)).collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public QuestionDTO findById(@PathVariable("id") Integer id) throws QuestionNotFoundException {
+	public QuestionToShowDTO findById(@PathVariable("id") Integer id) throws QuestionNotFoundException {
 		final Optional<Question> question = questionService.findById(id);
 		if(!question.isPresent()) throw new QuestionNotFoundException();
-		return questionMapper.modelToDto(question.get());
+		return questionToShowMapper.modelToDto(question.get());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -69,10 +81,6 @@ public class QuestionController {
 			questionService.update(question);
 		}
 	}
-	
-	
-	
-	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable("id") Integer id) {

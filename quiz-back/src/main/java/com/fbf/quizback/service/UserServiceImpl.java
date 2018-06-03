@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		userDao.delete(t);	
 	}
+	
+	@Override
+	public Optional<User> findByEmail(String email){
+		return userDao.findUserByemail(email);
+	}
 }

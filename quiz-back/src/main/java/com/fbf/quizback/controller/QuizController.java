@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fbf.quizback.component.mapper.question.QuestionMapper;
+import com.fbf.quizback.component.mapper.question.QuestionToShowMapper;
 import com.fbf.quizback.component.mapper.quiz.QuizMapper;
 import com.fbf.quizback.component.mapper.quiz.QuizQuestionMapper;
+import com.fbf.quizback.component.mapper.quiz.QuizToShowMapper;
 import com.fbf.quizback.dto.QuestionDTO;
+import com.fbf.quizback.dto.QuestionToShowDTO;
 import com.fbf.quizback.dto.QuizDTO;
 import com.fbf.quizback.dto.QuizQuestionDTO;
+import com.fbf.quizback.dto.QuizToShowDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.exception.QuizUsedException;
@@ -41,25 +45,31 @@ public class QuizController {
 	@Autowired
 	QuizQuestionMapper quizQuestionMapper;
 	
+	@Autowired
+	QuizToShowMapper quizToShowMapper;
+	
+	@Autowired
+	QuestionToShowMapper questionToShowMapper;
+	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<QuizDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+	public List<QuizToShowDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
 		final List<Quiz> quizs = quizService.findAll(PageRequest.of(page, size));
-		return quizMapper.modelToDto(quizs);
+		return quizToShowMapper.modelToDto(quizs);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public QuizDTO findById(@PathVariable("id") Integer id) throws QuizNotFoundException {
+	public QuizToShowDTO findById(@PathVariable("id") Integer id) throws QuizNotFoundException {
 		final Optional<Quiz> quiz = quizService.findById(id);
 		if(!quiz.isPresent())
 			throw new QuizNotFoundException();
-		return quizMapper.modelToDto(quiz.get());
+		return quizToShowMapper.modelToDto(quiz.get());
 	}
 
 	@RequestMapping(value = "/{id}/question", method = RequestMethod.GET)
-	public List<QuestionDTO> quizFindQuestion(@PathVariable("id") Integer id) throws QuestionNotFoundException, QuizNotFoundException {
+	public List<QuestionToShowDTO> quizFindQuestion(@PathVariable("id") Integer id) throws QuestionNotFoundException, QuizNotFoundException {
 		List<Question> questions = quizService.quizFindQuestion(id);
-		return questionMapper.modelToDto(questions);
+		return questionToShowMapper.modelToDto(questions);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)

@@ -50,6 +50,14 @@ public class ExceptionHandlers {
         log.error("The quiz is assigned to a question", ex);
         return new ErrorResponse("DIFICULT_IN_USED", "The quiz is assigned to a question");
     }
+    
+    @ExceptionHandler(EmailUserDuplicated.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorResponse handleEmailUserDuplicated(final EmailUserDuplicated ex) {
+        log.error("The quiz is assigned to a question", ex);
+        return new ErrorResponse("EMAIL_IN_USED", "The email is used");
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
