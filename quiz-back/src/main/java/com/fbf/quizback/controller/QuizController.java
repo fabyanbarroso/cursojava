@@ -106,14 +106,14 @@ public class QuizController {
 	
 	//delete question in quiz by URL
 	@RequestMapping(value="/{id}/question/{idquestion}",method = RequestMethod.DELETE)
-	public QuizQuestionDTO deleteQuestionQuiz(@RequestBody QuizQuestionDTO dto ,
+	public void deleteQuestionQuiz(@RequestBody QuizQuestionDTO dto ,
 			@PathVariable("id") Integer idQuiz, @PathVariable("idquestion") Integer idQuestion)
 					throws QuizNotFoundException, QuestionNotFoundException {
 		if(!quizService.findById(idQuiz).isPresent())
 			throw new QuizNotFoundException();
 		quizService.deleteQuestionQuiz(quizService.findById(idQuiz).get(), idQuestion);
 		
-		return dto;
+		//return dto;
 	}
 	
 	

@@ -91,16 +91,11 @@ public class QuizServiceImpl implements QuizService{
 		if(!quizSearch.isPresent())
 			throw new QuizNotFoundException();
 	
-			Quiz q = quizSearch.get();
-			Optional<Question> question = questionService.findById(idQuestion);
-			q.getQuestions().remove(question.get());
-			
-	
-
-
+		Quiz q = quizSearch.get();
+		Optional<Question> question = questionService.findById(idQuestion);
+		q.getQuestions().remove(question.get());
+		question.get().getQuiz().remove(q);
 		quizDAO.save(q);
-
-		
 	}
 	
 	@Override

@@ -31,8 +31,8 @@ public class QuestionMapperImpl extends AbstractMapper<Question, QuestionDTO> im
 	@Override
 	public QuestionDTO modelToDto(Question question) {
 		QuestionDTO dto = dozer.map(question, dtoClazz());
-		dto.setDificultLevel(question.getDificult());
-		dto.setTagQuestion(question.getTag());
+		//dto.setDificultLevel(question.getDificult());
+		//dto.setTagQuestion(question.getTag());
 		return dto;
 	}
 }

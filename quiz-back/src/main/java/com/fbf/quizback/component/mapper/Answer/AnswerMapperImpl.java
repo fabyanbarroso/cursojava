@@ -1,9 +1,12 @@
 package com.fbf.quizback.component.mapper.Answer;
 
+import org.springframework.stereotype.Component;
+
 import com.fbf.quizback.component.mapper.AbstractMapper;
 import com.fbf.quizback.dto.AnswerDTO;
 import com.fbf.quizback.model.Answer;
 
+@Component
 public class AnswerMapperImpl extends AbstractMapper<Answer, AnswerDTO>{
 
 	@Override

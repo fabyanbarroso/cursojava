@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class QuestionDTO implements Serializable{
 	private String question;
-	private Dificult dificultLevel;
-	private Tag tagQuestion;
+	//private Dificult dificultLevel;
+	//private Tag tagQuestion;
 }

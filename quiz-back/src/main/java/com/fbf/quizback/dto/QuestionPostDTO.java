@@ -7,6 +7,6 @@ import lombok.Data;
 public class QuestionPostDTO implements Serializable{
 	private String question;
 	private int dificultLevel;
-	private int tagQuestion;
-	private int idQuiz;
+	//private int tagQuestion;
+	//private int idQuiz;
 }

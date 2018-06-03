@@ -13,6 +13,6 @@ public class QuizToShowDTO implements Serializable{
 
 		private int idQuiz;
 		private String nameQuiz;
-		private CourseDTO course;
+		//private CourseDTO course;
 		private List<QuestionToShowDTO> question;
 }

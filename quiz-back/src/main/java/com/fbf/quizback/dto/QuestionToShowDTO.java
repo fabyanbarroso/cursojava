@@ -13,6 +13,6 @@ public class QuestionToShowDTO implements Serializable{
 	
 	private int idQuestion;
 	private String question;
-	private String tag;
-	private int dificult; 
+	//private String tag;
+	//private int dificult; 
 }

@@ -46,8 +46,8 @@ public class QuestionPostMapperImpl extends AbstractMapper<Question, QuestionPos
 	@Override
 	public QuestionPostDTO modelToDto(Question question) {
 		QuestionPostDTO dto = dozer.map(question, dtoClazz());
-		dto.setDificultLevel(question.getDificult().getIdDificult());
-		dto.setTagQuestion(question.getTag().getIdTag());
+		//dto.setDificultLevel(question.getDificult().getIdDificult());
+		//dto.setTagQuestion(question.getTag().getIdTag());
 		return dto;
 	}
 
@@ -56,10 +56,12 @@ public class QuestionPostMapperImpl extends AbstractMapper<Question, QuestionPos
 	public Question dtoToModel(QuestionPostDTO dto) {
 		Question question = dozer.map(dto, modelClazz());
 		question.setQuestion(dto.getQuestion());
-		question.setDificult(dificultService.findById(dto.getDificultLevel()).get());
-		System.out.println("tag"+tagService.findById(dto.getTagQuestion()).get().getIdTag());
-		question.setTag(tagService.findById(dto.getTagQuestion()).get());
-		
+		/*
+		if(dificultService.findById(dto.getDificultLevel()).isPresent())
+			question.setDificult(dificultService.findById(dto.getDificultLevel()).get());
+		if(tagService.findById(dto.getTagQuestion()).isPresent())
+			question.setTag(tagService.findById(dto.getTagQuestion()).get());
+	*/
 		return question;
 		
 	} 

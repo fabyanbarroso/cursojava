@@ -33,7 +33,7 @@ public class Question {
 	@Column(nullable = false)
 	private String question;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "Question_Quiz",
 			   joinColumns = {@JoinColumn(name = FIELD_QUESTION)},
 			   inverseJoinColumns = {@JoinColumn(name = FIELD_QUIZ)})
