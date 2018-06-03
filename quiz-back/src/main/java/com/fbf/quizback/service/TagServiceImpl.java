@@ -1,7 +1,7 @@
 package com.fbf.quizback.service;
 
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -37,11 +37,11 @@ public class TagServiceImpl implements TagService{
 	}
 
 	@Override
-	public Set<Tag> findAll(Pageable p) {
+	public List<Tag> findAll(Pageable p) {
 		// TODO Auto-generated method stub
 		int page = p.getPageNumber();
 		int size = p.getPageSize();
-		return tagDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
+		return tagDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toList());
 	}
 
 	@Override

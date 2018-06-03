@@ -1,8 +1,11 @@
 package com.fbf.quizback.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.Set;
+import java.util.function.Predicate;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.fbf.quizback.dao.QuizDAO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.exception.QuizNotFoundException;
+import com.fbf.quizback.exception.QuizUsedException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 
@@ -28,11 +32,8 @@ public class QuizServiceImpl implements QuizService{
 	QuestionService questionService;
 	
 	@Override
-	public Quiz create(Quiz t, int idCourse) {
+	public Quiz create(Quiz t) {
 		// TODO Auto-generated method stub
-		if (courseService.findById(idCourse).isPresent()) {
-			t.setCourse(courseService.findById(idCourse).get());
-		}
 		return quizDAO.save(t);
 	}
 
@@ -49,30 +50,45 @@ public class QuizServiceImpl implements QuizService{
 	}
 
 	@Override
-	public Set<Quiz> findAll(Pageable p) {
+	public List<Quiz> findAll(Pageable p) {
 		// TODO Auto-generated method stub
 		int page = p.getPageNumber();
 		int size = p.getPageSize();
-		return quizDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
+		return quizDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toList());
 	}
 
 	@Override
 	public void delete(Quiz t) {
-		// TODO Auto-generated method stub
 		quizDAO.delete(t);
 	}
 
 	@Override
-	public Set<Question> quizFindQuestion(int idQuiz) throws QuestionNotFoundException, QuizNotFoundException {
+	public List<Question> quizFindQuestion(int idQuiz) throws QuestionNotFoundException, QuizNotFoundException {
 		// TODO Auto-generated method stub
 		if(!quizDAO.findById(idQuiz).isPresent())
 			throw new QuizNotFoundException();
-		Quiz quiz = quizDAO.findById(idQuiz).get();
-		Set <Question> questions = questionService.findAll(PageRequest.of(0, 10));
+		Quiz quizSelected = quizDAO.findById(idQuiz).get();
 		
-		
-		
-		return questions;
+		final Iterable<Question> findAll = questionService.findAll(PageRequest.of(0, 10));
+		final List<Question> res = new ArrayList<>();
+		findAll.forEach(b -> {
+			
+			final Iterable<Quiz> findQuizInQuestion = b.getQuiz();
+			findQuizInQuestion.forEach(a ->{
+				if(quizSelected.equals(a))
+					res.add(b);
+			});
+		});
+		return res;
 	}
-
+	
+	@Override
+	public void addQuestion(Quiz quiz, int idQuestion) throws QuestionNotFoundException {
+		if(!questionService.findById(idQuestion).isPresent())
+			throw new QuestionNotFoundException();
+		Question question = questionService.findById(idQuestion).get();
+		question.getQuiz().add(quiz);
+		quiz.getQuestions().add(question);
+		quizDAO.save(quiz);
+	}
 }

@@ -1,7 +1,7 @@
 package com.fbf.quizback.service;
 
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +14,7 @@ public interface TagService {
 	
 	Optional<Tag> findById(Integer id);
 	
-	Set<Tag> findAll(Pageable p);
+	List<Tag> findAll(Pageable p);
 	
 	void delete(Tag t);
 }

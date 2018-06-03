@@ -1,7 +1,7 @@
 package com.fbf.quizback.controller;
 
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +26,9 @@ public class DificultController {
 	DificultMapper dificultMapper;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public Set<DificultDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+	public List<DificultDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
-		final Set<Dificult> dificult = dificultService.findAll(PageRequest.of(page, size));
+		final List<Dificult> dificult = dificultService.findAll(PageRequest.of(page, size));
 		return dificultMapper.modelToDto(dificult);
 	}
 	

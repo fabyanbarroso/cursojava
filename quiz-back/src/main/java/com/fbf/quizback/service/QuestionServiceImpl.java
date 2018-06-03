@@ -1,5 +1,6 @@
 package com.fbf.quizback.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,6 +28,9 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	@Autowired
 	TagService tagService;
+	
+	@Autowired
+	QuizService quizService;
 
 	public Question create(Question t) {
 		return questionDAO.save(t);
@@ -45,11 +49,11 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public Set<Question> findAll(Pageable p) {
+	public List<Question> findAll(Pageable p) {
 		// TODO Auto-generated method stub
 		int page = p.getPageNumber();
 		int size = p.getPageSize();
-		return questionDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
+		return questionDAO.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toList());
 	}
 
 	@Override

@@ -1,11 +1,14 @@
 
 package com.fbf.quizback.component.mapper;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.fbf.quizback.exception.DificultNotFoundException;
+import com.fbf.quizback.exception.QuizNotFoundException;
 
 
 @Component
@@ -16,7 +19,7 @@ public abstract class AbstractMapper<M, D> implements Mapper<M, D> {
 	public DozerBeanMapper dozer;
 
 	@Override
-	public M dtoToModel(D dto) {
+	public M dtoToModel(D dto){
 		return dozer.map(dto, modelClazz());
 	}
 
@@ -25,13 +28,13 @@ public abstract class AbstractMapper<M, D> implements Mapper<M, D> {
 		return dozer.map(model, dtoClazz());
 	}
 
-	@Override
-	public Set<M> dtoToModel(Set<D> dtos) {
-		return dtos.stream().map(d -> dtoToModel(d)).collect(Collectors.toSet());
+	@Override        
+	public List<M> dtoToModel(List<D> dtos) {
+		return dtos.stream().map(d -> dtoToModel(d)).collect(Collectors.toList());
 	}
 
 	@Override
-	public Set<D> modelToDto(Set<M> models) {
-		return models.stream().map(m -> modelToDto(m)).collect(Collectors.toSet());
+	public List<D> modelToDto(List<M> models) {
+		return models.stream().map(m -> modelToDto(m)).collect(Collectors.toList());
 	}
 }

@@ -2,7 +2,7 @@ package com.fbf.quizback.service;
 
 import java.io.Serializable;
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +16,7 @@ public interface AbstractCRUDService <T, ID extends Serializable>{
 	
 	Optional<T> findById(ID id);
 	
-	Set<T> findAll(Pageable p);
+	List<T> findAll(Pageable p);
 	
 	void delete(T t);
 	

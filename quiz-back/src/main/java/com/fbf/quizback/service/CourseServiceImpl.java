@@ -1,7 +1,7 @@
 package com.fbf.quizback.service;
 
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -36,11 +36,11 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public Set<Course> findAll(Pageable p) {
+	public List<Course> findAll(Pageable p) {
 		// TODO Auto-generated method stub
 		int page = p.getPageNumber();
 		int size = p.getPageSize();
-		return courseDao.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
+		return courseDao.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toList());
 	}
 
 	@Override

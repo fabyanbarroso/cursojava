@@ -34,6 +34,22 @@ public class ExceptionHandlers {
         log.error("Quiz not found thrown", ex);
         return new ErrorResponse("QUIZ_NOT_FOUND", "The quiz was not found");
     }
+    
+    @ExceptionHandler(DificultNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorResponse handleDificultNotFoundException(final DificultNotFoundException ex) {
+        log.error("Dificult not found thrown", ex);
+        return new ErrorResponse("DIFICULT_NOT_FOUND", "The dificult was not found");
+    }
+    
+    @ExceptionHandler(QuizUsedException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorResponse handleQuizUsedException(final QuizUsedException ex) {
+        log.error("The quiz is assigned to a question", ex);
+        return new ErrorResponse("DIFICULT_IN_USED", "The quiz is assigned to a question");
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)

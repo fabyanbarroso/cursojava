@@ -1,6 +1,9 @@
 package com.fbf.quizback.model;
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +27,9 @@ public class Quiz {
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	private int id_quiz;
+	
+	@Column
+	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = Result.FIELD_QUIZ)
 	private List<Result> result;
