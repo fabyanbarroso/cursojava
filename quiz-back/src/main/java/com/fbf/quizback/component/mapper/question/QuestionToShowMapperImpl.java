@@ -1,6 +1,7 @@
 package com.fbf.quizback.component.mapper.question;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,17 +50,9 @@ public class QuestionToShowMapperImpl extends AbstractMapper<Question, QuestionT
 		answers.forEach(b -> {
 			res.add(answerMapper.modelToDto(b));
 		});
-
+		Collections.shuffle(res);
 		dto.setAnswers(res);
 		
-		/*
-		Optional<Dificult> d = dificultService.findById(question.getDificult().getDificult());
-		if(d.isPresent())
-			dto.setDificult(dificultService.findById(question.getDificult().getIdDificult()).get().getDificult());
-		Optional<Tag> tag = tagService.findById(question.getTag().getIdTag());
-		if(tag.isPresent());
-			dto.setTag(tagService.findById(question.getTag().getIdTag()).get().getName());
-			*/
 		return dto;
 	}
 }

@@ -1,6 +1,7 @@
 package com.fbf.quizback.component.mapper.quiz;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ public class QuizToShowMapperImpl extends AbstractMapper<Quiz, QuizToShowDTO> im
 	
 	public QuizToShowDTO modelToDto(Quiz quiz) {
 		QuizToShowDTO dto = dozer.map(quiz, dtoClazz());
-		//dto.setCourse(courseMapper.modelToDto(quiz.getCourse()));
 		dto.setNameQuiz(quiz.getName());
 		dto.setIdQuiz(quiz.getId_quiz());
 		final Iterable<Question> questions = quiz.getQuestions();
@@ -40,7 +40,7 @@ public class QuizToShowMapperImpl extends AbstractMapper<Quiz, QuizToShowDTO> im
 		questions.forEach(b -> {
 			res.add(questiontoShowMapper.modelToDto(b));
 		});
-
+		Collections.shuffle(res);
 		dto.setQuestion(res);
 		return dto;
 	}

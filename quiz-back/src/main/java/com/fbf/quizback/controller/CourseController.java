@@ -1,7 +1,8 @@
 package com.fbf.quizback.controller;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.fbf.quizback.component.mapper.course.CourseMapper;
 import com.fbf.quizback.dto.CourseDTO;
+import com.fbf.quizback.exception.CourseNotFoundException;
+import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.model.Course;
 import com.fbf.quizback.service.CourseService;
 
@@ -24,6 +28,7 @@ public class CourseController {
 
 	@Autowired
 	CourseMapper courseMapper;
+	
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<CourseDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
@@ -58,5 +63,18 @@ public class CourseController {
 	public void delete(@PathVariable("id") Integer id) {
 		final Optional<Course> course = courseService.findById(id);
 		courseService.delete(course.get());
+	}
+	
+	//add quiz for course by URL
+	@RequestMapping(value = "/{id}/quiz/{idQuiz}", method = RequestMethod.POST)
+	public CourseDTO createCourseQuiz(@PathVariable("id") Integer idCourse, @PathVariable("idQuiz") Integer idQuiz) throws CourseNotFoundException, QuizNotFoundException  {
+
+		Optional<Course> createCourse = courseService.findById(idCourse);
+		if(!createCourse.isPresent())
+			throw new CourseNotFoundException();
+		
+		courseService.addQuiz(createCourse.get(), idQuiz);
+		
+		return courseMapper.modelToDto(createCourse.get());
 	}
 }

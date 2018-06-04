@@ -3,12 +3,10 @@ package com.fbf.quizback.component.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.fbf.quizback.exception.DificultNotFoundException;
-import com.fbf.quizback.exception.QuizNotFoundException;
 
 
 @Component

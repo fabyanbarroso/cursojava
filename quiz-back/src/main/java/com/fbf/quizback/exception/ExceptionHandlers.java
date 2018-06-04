@@ -19,6 +19,14 @@ public class ExceptionHandlers {
         return new ErrorResponse("USER_NOT_FOUND", "The user was not found");
     }
     
+    @ExceptionHandler(CourseNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorResponse handleUCourseNotFoundException(final CourseNotFoundException ex) {
+        log.error("Course not found thrown", ex);
+        return new ErrorResponse("Course_NOT_FOUND", "The Coursewas not found");
+    }
+    
     @ExceptionHandler(QuestionNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody

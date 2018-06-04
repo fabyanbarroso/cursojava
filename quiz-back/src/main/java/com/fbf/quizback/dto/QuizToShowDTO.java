@@ -11,8 +11,11 @@ import lombok.Setter;
 @Data
 public class QuizToShowDTO implements Serializable{
 
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private int idQuiz;
 		private String nameQuiz;
-		//private CourseDTO course;
 		private List<QuestionToShowDTO> question;
 }

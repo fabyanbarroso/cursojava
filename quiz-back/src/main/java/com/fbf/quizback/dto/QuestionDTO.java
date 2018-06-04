@@ -2,13 +2,14 @@ package com.fbf.quizback.dto;
 
 import java.io.Serializable;
 
-import com.fbf.quizback.model.Dificult;
-import com.fbf.quizback.model.Tag;
-
 import lombok.Data;
 
 @Data
 public class QuestionDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String question;
 
 }
