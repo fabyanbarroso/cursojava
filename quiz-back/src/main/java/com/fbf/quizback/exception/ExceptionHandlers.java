@@ -66,6 +66,14 @@ public class ExceptionHandlers {
         log.error("The answer not found thrown", ex);
         return new ErrorResponse("ANSWER_NOT_FUND", "The answer was not found");
     }
+    
+    @ExceptionHandler(TooManyAnswerException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorResponse handleTooManyAnswerException(final TooManyAnswerException ex) {
+        log.error("Too many answer thrown", ex);
+        return new ErrorResponse("TOO_MANY_ANSWER", "o more than 4 responses are allowed");
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)

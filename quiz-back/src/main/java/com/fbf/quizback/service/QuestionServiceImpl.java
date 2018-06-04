@@ -14,6 +14,7 @@ import com.fbf.quizback.dao.QuestionDAO;
 import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.exception.QuizNotFoundException;
+import com.fbf.quizback.exception.TooManyAnswerException;
 import com.fbf.quizback.model.Answer;
 import com.fbf.quizback.model.Dificult;
 import com.fbf.quizback.model.Question;
@@ -81,8 +82,11 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public Answer createAnswer(int idQuestion, String textAnswer, boolean correctAnswer) throws QuestionNotFoundException {
+	public Answer createAnswer(int idQuestion, String textAnswer, boolean correctAnswer) throws QuestionNotFoundException, TooManyAnswerException {
 		final Optional<Question> question = questionDAO.findById(idQuestion);
+		if(answerService.findAllByQuestion(question.get()).size()>3)
+			throw new TooManyAnswerException();
+		
 		if(!question.isPresent())
 			throw new QuestionNotFoundException();
 		final Answer answer = answerService.create(question.get(), textAnswer, correctAnswer);

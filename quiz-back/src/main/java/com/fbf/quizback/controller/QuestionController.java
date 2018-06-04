@@ -21,6 +21,7 @@ import com.fbf.quizback.dto.QuestionToShowDTO;
 import com.fbf.quizback.dto.QuizQuestionDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.exception.QuizNotFoundException;
+import com.fbf.quizback.exception.TooManyAnswerException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.service.QuestionService;
 import com.fbf.quizback.service.QuizService;
@@ -74,7 +75,7 @@ public class QuestionController {
 	
 	//add answer for question by URL
 	@RequestMapping(value = "/{id}/answer", method = RequestMethod.POST)
-	public QuestionDTO createAnswer(@PathVariable("id") Integer idQuestion, @RequestBody AnswerDTO dto) throws QuestionNotFoundException{
+	public QuestionDTO createAnswer(@PathVariable("id") Integer idQuestion, @RequestBody AnswerDTO dto) throws QuestionNotFoundException, TooManyAnswerException{
 		questionService.createAnswer(idQuestion, dto.getAnswer(), dto.getCorrect());
 		Optional<Question> createAnswer = questionService.findById(idQuestion);
 		if(!createAnswer.isPresent())

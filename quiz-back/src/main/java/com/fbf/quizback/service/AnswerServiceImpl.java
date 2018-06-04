@@ -62,8 +62,8 @@ public class AnswerServiceImpl implements AnswerService{
 	}
 	
 	@Override
-	public Answer findByQuestion(Question question) {
-		return answerDAO.findByQuestion(question);
+	public List<Answer> findAllByQuestion(Question question) {
+		return answerDAO.findAllByQuestion(question);
 	}
 
 }
