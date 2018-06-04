@@ -1,14 +1,11 @@
 package com.fbf.quizback.component.mapper.Answer;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fbf.quizback.component.mapper.AbstractMapper;
 import com.fbf.quizback.dto.AnswerDTO;
 import com.fbf.quizback.model.Answer;
-import com.fbf.quizback.model.Question;
 import com.fbf.quizback.service.QuestionService;
 
 @Component

@@ -1,25 +1,20 @@
 package com.fbf.quizback.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.fbf.quizback.component.mapper.Answer.AnswerMapper;
 import com.fbf.quizback.dto.AnswerDTO;
-import com.fbf.quizback.dto.QuestionToShowDTO;
-import com.fbf.quizback.dto.QuizDTO;
-import com.fbf.quizback.exception.QuestionNotFoundException;
-import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.model.Answer;
-import com.fbf.quizback.model.Question;
-import com.fbf.quizback.model.Quiz;
 import com.fbf.quizback.service.AnswerService;
 
 @RestController
@@ -36,7 +31,7 @@ public class AnswerController {
 	public List<AnswerDTO> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
 			@RequestParam(defaultValue = "10", required = false) Integer size) {
 		final List<Answer> answers = answerService.findAll(PageRequest.of(page, size));
-		//return answerMapper.modelToDto(answers);
+		Collections.shuffle(answers);
 		return answers.stream().map(answer -> answerMapper.modelToDto(answer)).collect(Collectors.toList());
 	}
 	
@@ -47,5 +42,10 @@ public class AnswerController {
 		return answerMapper.modelToDto(createAnswer);
 	}
 
+	
+	public int aleatorio(int a, int b) {
+	 int random = (int) Math.floor(Math.random()*6+1);
+	return random-1;
+	}
 	
 }

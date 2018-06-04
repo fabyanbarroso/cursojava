@@ -2,24 +2,18 @@ package com.fbf.quizback.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.fbf.quizback.dao.QuestionDAO;
-import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
-import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.exception.TooManyAnswerException;
 import com.fbf.quizback.model.Answer;
-import com.fbf.quizback.model.Dificult;
 import com.fbf.quizback.model.Question;
-import com.fbf.quizback.model.Quiz;
-import com.fbf.quizback.model.Tag;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{

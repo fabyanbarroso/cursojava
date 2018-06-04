@@ -2,16 +2,15 @@ package com.fbf.quizback.component.mapper.quiz;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.fbf.quizback.component.mapper.AbstractMapper;
 import com.fbf.quizback.component.mapper.course.CourseMapper;
 import com.fbf.quizback.component.mapper.question.QuestionToShowMapper;
 import com.fbf.quizback.dto.QuestionToShowDTO;
 import com.fbf.quizback.dto.QuizToShowDTO;
-import com.fbf.quizback.model.Course;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 import com.fbf.quizback.service.CourseService;

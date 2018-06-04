@@ -1,13 +1,12 @@
 package com.fbf.quizback.service;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.exception.QuizNotFoundException;
-import com.fbf.quizback.exception.QuizUsedException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
 

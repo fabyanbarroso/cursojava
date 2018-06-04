@@ -1,7 +1,7 @@
 package com.fbf.quizback.controller;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -17,17 +17,14 @@ import com.fbf.quizback.component.mapper.question.QuestionToShowMapper;
 import com.fbf.quizback.component.mapper.quiz.QuizMapper;
 import com.fbf.quizback.component.mapper.quiz.QuizQuestionMapper;
 import com.fbf.quizback.component.mapper.quiz.QuizToShowMapper;
-import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.dto.QuestionToShowDTO;
 import com.fbf.quizback.dto.QuizDTO;
 import com.fbf.quizback.dto.QuizQuestionDTO;
 import com.fbf.quizback.dto.QuizToShowDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.exception.QuizNotFoundException;
-import com.fbf.quizback.exception.QuizUsedException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
-import com.fbf.quizback.service.QuestionService;
 import com.fbf.quizback.service.QuizService;
 
 @RestController

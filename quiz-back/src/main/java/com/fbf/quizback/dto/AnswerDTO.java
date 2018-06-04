@@ -1,6 +1,7 @@
 package com.fbf.quizback.dto;
 
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

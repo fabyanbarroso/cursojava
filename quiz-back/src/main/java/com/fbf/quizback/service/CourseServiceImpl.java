@@ -1,14 +1,15 @@
 package com.fbf.quizback.service;
 
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.fbf.quizback.dao.CourseDAO;
-import com.fbf.quizback.dto.CourseDTO;
 import com.fbf.quizback.model.Course;
 
 @Service

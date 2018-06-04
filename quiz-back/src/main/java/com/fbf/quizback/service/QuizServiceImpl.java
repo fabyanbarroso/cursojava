@@ -1,12 +1,10 @@
 package com.fbf.quizback.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,11 +13,8 @@ import org.springframework.stereotype.Service;
 import com.fbf.quizback.dao.QuizDAO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
 import com.fbf.quizback.exception.QuizNotFoundException;
-import com.fbf.quizback.exception.QuizUsedException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
-
-import ch.qos.logback.core.joran.conditional.IfAction;
 
 @Service
 public class QuizServiceImpl implements QuizService{
