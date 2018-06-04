@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fbf.quizback.component.mapper.question.QuestionMapper;
 import com.fbf.quizback.component.mapper.question.QuestionPostMapper;
 import com.fbf.quizback.component.mapper.question.QuestionToShowMapper;
+import com.fbf.quizback.dto.AnswerDTO;
 import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.dto.QuestionPostDTO;
 import com.fbf.quizback.dto.QuestionToShowDTO;
+import com.fbf.quizback.dto.QuizQuestionDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
+import com.fbf.quizback.exception.QuizNotFoundException;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.service.QuestionService;
+import com.fbf.quizback.service.QuizService;
 
 @RestController
 @RequestMapping(value = "/question")
@@ -67,6 +71,25 @@ public class QuestionController {
 		final Question createQuestion = questionService.create(question);
 		return questionMapper.modelToDto(createQuestion);
 	}
+	
+	//add answer for question by URL
+	@RequestMapping(value = "/{id}/answer", method = RequestMethod.POST)
+	public QuestionDTO createAnswer(@PathVariable("id") Integer idQuestion, @RequestBody AnswerDTO dto) throws QuestionNotFoundException{
+		questionService.createAnswer(idQuestion, dto.getAnswer(), dto.getCorrect());
+		Optional<Question> createAnswer = questionService.findById(idQuestion);
+		if(!createAnswer.isPresent())
+			throw new QuestionNotFoundException();
+		return questionMapper.modelToDto(createAnswer.get());
+	}
+	
+	//delete answer in quiz by URL
+		@RequestMapping(value="/{id}/answer/{idAnswer}",method = RequestMethod.DELETE)
+		public void deleteAnswerQuestion(@PathVariable("id") Integer idQuestion, 
+				@PathVariable("idAnswer") Integer idAnswer) throws QuestionNotFoundException {
+			if(!questionService.findById(idQuestion).isPresent())
+				throw new QuestionNotFoundException();
+			questionService.deleteAnswerQuiz(questionService.findById(idQuestion).get(), idAnswer);
+		}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public void update(@PathVariable("id") Integer id, @RequestBody QuestionPostDTO dto) throws QuestionNotFoundException{

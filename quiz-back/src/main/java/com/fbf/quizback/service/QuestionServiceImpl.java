@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.fbf.quizback.dao.QuestionDAO;
 import com.fbf.quizback.dto.QuestionDTO;
 import com.fbf.quizback.exception.QuestionNotFoundException;
+import com.fbf.quizback.exception.QuizNotFoundException;
+import com.fbf.quizback.model.Answer;
 import com.fbf.quizback.model.Dificult;
 import com.fbf.quizback.model.Question;
 import com.fbf.quizback.model.Quiz;
@@ -31,6 +34,9 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	@Autowired
 	QuizService quizService;
+	
+	@Autowired
+	AnswerService answerService;
 
 	public Question create(Question t) {
 		return questionDAO.save(t);
@@ -74,4 +80,29 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDAO.save(question);
 	}
 
+	@Override
+	public Answer createAnswer(int idQuestion, String textAnswer, boolean correctAnswer) throws QuestionNotFoundException {
+		final Optional<Question> question = questionDAO.findById(idQuestion);
+		if(!question.isPresent())
+			throw new QuestionNotFoundException();
+		final Answer answer = answerService.create(question.get(), textAnswer, correctAnswer);
+		question.get().getAnswer().add(answer);
+		update(question.get());
+		return answer;
+	}
+	
+	@Override
+	public void deleteAnswerQuiz(Question question, int idAnswer) throws QuestionNotFoundException {
+
+		Optional<Question> questionSearch = questionDAO.findById(question.getId_question());
+		if(!questionSearch.isPresent())
+			throw new QuestionNotFoundException();
+	
+		Question q = questionSearch.get();
+		Optional<Answer> answer = answerService.findById(idAnswer);
+		q.getAnswer().remove(answer.get());
+		answerService.delete(answer.get());
+		questionDAO.save(q);
+	}
+	
 }

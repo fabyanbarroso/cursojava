@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fbf.quizback.dao.AnswerDAO;
 import com.fbf.quizback.model.Answer;
+import com.fbf.quizback.model.Question;
 
 @Service
 public class AnswerServiceImpl implements AnswerService{
@@ -48,6 +49,21 @@ public class AnswerServiceImpl implements AnswerService{
 	public void delete(Answer t) {
 		// TODO Auto-generated method stub
 		answerDAO.delete(t);
+	}
+	
+	@Override
+	public Answer create(Question question, String textAnswer, boolean correctAnswer)
+	{
+		final Answer answer = new Answer();
+		answer.setQuestion(question);
+		answer.setTextAnswer(textAnswer);
+		answer.setCorrect(correctAnswer);
+		return answerDAO.save(answer);
+	}
+	
+	@Override
+	public Answer findByQuestion(Question question) {
+		return answerDAO.findByQuestion(question);
 	}
 
 }

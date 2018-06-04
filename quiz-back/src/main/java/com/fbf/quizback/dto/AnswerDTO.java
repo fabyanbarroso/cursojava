@@ -12,5 +12,5 @@ public class AnswerDTO implements Serializable{
 
 	private int idAnswer;
 	private String answer;
-	private boolean correct;
+	private Boolean correct;
 }

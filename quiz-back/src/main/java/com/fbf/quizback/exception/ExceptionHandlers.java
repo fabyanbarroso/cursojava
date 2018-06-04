@@ -58,6 +58,14 @@ public class ExceptionHandlers {
         log.error("The quiz is assigned to a question", ex);
         return new ErrorResponse("EMAIL_IN_USED", "The email is used");
     }
+    
+    @ExceptionHandler(AnswerNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorResponse handleAnswerNotFoundException(final AnswerNotFoundException ex) {
+        log.error("The answer not found thrown", ex);
+        return new ErrorResponse("ANSWER_NOT_FUND", "The answer was not found");
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
@@ -66,7 +74,6 @@ public class ExceptionHandlers {
       log.error("Unexpected error", ex);
       return new ErrorResponse("INTERNAL_SERVER_ERROR", "An unexpected internal server error occured");
     }
-    
     
 
     @Data

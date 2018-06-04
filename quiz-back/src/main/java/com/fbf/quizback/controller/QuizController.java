@@ -108,12 +108,10 @@ public class QuizController {
 	@RequestMapping(value="/{id}/question/{idquestion}",method = RequestMethod.DELETE)
 	public void deleteQuestionQuiz(@RequestBody QuizQuestionDTO dto ,
 			@PathVariable("id") Integer idQuiz, @PathVariable("idquestion") Integer idQuestion)
-					throws QuizNotFoundException, QuestionNotFoundException {
+			throws QuizNotFoundException, QuestionNotFoundException {
 		if(!quizService.findById(idQuiz).isPresent())
 			throw new QuizNotFoundException();
 		quizService.deleteQuestionQuiz(quizService.findById(idQuiz).get(), idQuestion);
-		
-		//return dto;
 	}
 	
 	
